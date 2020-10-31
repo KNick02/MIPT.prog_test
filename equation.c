@@ -1,5 +1,3 @@
-#define A radioactivity, time, N, a
-#define DECAY_TIME radioactivity, time, N, decay_time
 #include <math.h>
 
 double nonlinear_equation(double *radioactivity, double *time, int N, double precision);
@@ -15,11 +13,10 @@ double model(double *radioactivity, double *time, int N, double point)
 	int i = 0;
 
 	for(i = 0; i < N; i++)
-	{
 		sum += ( time[i]*expl(-time[i]/point) * (radioactivity[i] - expl(-time[i]/point)) );
-	}
+
 	return sum;
-	}
+}
 
 double nonlinear_equation(double *radioactivity, double *time, int N, double precision)
 {
@@ -28,23 +25,26 @@ double nonlinear_equation(double *radioactivity, double *time, int N, double pre
 	b = 8.2;
 
 	double decay_time = 0;
-
+	double modelA = 0;
+	double modelD = 0;
 
 	do
 	{
 
 		decay_time = (a+b) / 2;
+		modelA = model(radioactivity, time, N, a);
+		modelD = model(radioactivity, time, N, decay_time);
 
-		if (model(A) * model(DECAY_TIME) < 0)
+		if (modelA * modelD < 0)
 			b = decay_time;
 
-		else if (model(A) * model(DECAY_TIME) > 0)
+		else if (modelA * modelD > 0)
 			a = decay_time;
 
 		else
 			return decay_time;
 
-	} while(fabs(model(DECAY_TIME)) > precision);
+	} while(fabs(b-a) > 2*precision);
 
 
 	return decay_time;

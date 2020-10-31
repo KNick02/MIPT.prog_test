@@ -11,6 +11,5 @@ double dev_exp(double *radioactivity, double *time, int M, double decay_time)
 	
 	double res = sqrt(sum_residuals1)/M;
 
-	printf("Result of dev_exp: M = %d, e = %lg\n", M, res);
 	return res;
 }
