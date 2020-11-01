@@ -13,7 +13,6 @@ double precision_analysis(double *radioactivity, double *time, int N, double pre
 		deviation1 = dev_exp(radioactivity, time, i, non_lin);
 		deviation2 = dev_linear(radioactivity, time, i, lin);
 		div = deviation2/deviation1;
-		printf("number of points = %d, non_lin = %lg, lin = %lg, dev1= %lg, dev2 = %lg\n", i, non_lin, lin, deviation1, deviation2);
 	}
 
 	return time[i];
