@@ -15,20 +15,16 @@ int main()
 
 	scanf("%lg %lg %lg %lg %lg", &start_time, &end_time, &step, &precision, &betta);
 	
-	int N = experiment (radioactivity, time, start_time, end_time, step, betta);
-	printf("experiment ok\n");	
-	add_noise(radioactivity, N);
-
-	printf("add_noise ok\n");	
-	double decay_time = nonlinear_equation(radioactivity, time, N, precision);
-
-	printf("nonlinear ok\n");	
-	double decay_rate = linear_equation(radioactivity, time, N);
+	int N = experiment (radioactivity, time, start_time, end_time, step, betta);	
 	
-	printf("linear ok\n");	
+	add_noise(radioactivity, N);
+	
+	double decay_time = nonlinear_equation(radioactivity, time, N, precision);
+	
+	double decay_rate = linear_equation(radioactivity, time, N);
+		
 	double time_differences = precision_analysis(radioactivity, time, N, precision);
-
-	printf("pr_analysis ok\n");	
+	
 	printf("decay_time: %lg\ndecay_rate: %lg\ntime differences: %lg\n\n", decay_time, decay_rate, time_differences);
 	return 0;
 }
